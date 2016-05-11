@@ -1,0 +1,21 @@
+import os
+import time
+from time import sleep
+
+import RPi.GPIO as GPIO
+
+GPIO.setmode(GPIO.BCM)
+GPIO.setwarnings(False)
+GPIO.setup(23, GPIO.IN, GPIO.PUD_UP)
+GPIO.setup(17, GPIO.OUT)
+GPIO.setup(18, GPIO.IN, GPIO.PUD_UP)
+GPIO.setup(22, GPIO.IN, GPIO.PUD_UP)
+GPIO.setup(27, GPIO.OUT)
+GPIO.setup(24, GPIO.IN, GPIO.PUD_UP)
+GPIO.setup(25, GPIO.OUT)
+
+scanner = 4
+scan_switch = 15
+
+GPIO.setup(scanner, GPIO.OUT)
+GPIO.setup(scan_switch, GPIO.IN, GPIO.PUD_UP)
