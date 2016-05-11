@@ -1,0 +1,5 @@
+1. (1) Raspberry Pi 2 (switch to Pi 3 in the future)
+2. (2) HC-SR04 ranging sensors (1 front, 1 back)
+3. (1) TFT touch screen (3.5" to 5" in size)
+4. (2) Red LED's (for ranging indication warnings)
+5. (3) Rocker switches (1 for power on/off, 1 for raning on/off, 1 for logging on/off)
