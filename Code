@@ -19,3 +19,38 @@ scan_switch = 15
 
 GPIO.setup(scanner, GPIO.OUT)
 GPIO.setup(scan_switch, GPIO.IN, GPIO.PUD_UP)
+
+while True:
+    if GPIO.input(scan_switch) == False:
+        GPIO.output(scanner, 1)
+    else:
+        GPIO.output(scanner, 0)
+
+    if (GPIO.input(18) == False):
+        GPIO.output(17, 1)
+        os.system('mpg123 -q allgo.mp3 &')
+        print("All systems go")
+        sleep(1)
+        GPIO.output(17, 0)
+
+    if (GPIO.input(22) == False):
+        GPIO.output(27, 1)
+        os.system('mpg123 -q onway.mp3 &')
+        print("I'm on my way")
+        sleep(1)
+        GPIO.output(27, 0)
+
+    if (GPIO.input(24) == False):
+        GPIO.output(25, 1)
+        os.system('mpg123 -q amuse.mp3 &')
+        print("I'm not amused")
+        sleep(1)
+        GPIO.output(25, 0)
+
+    if (GPIO.input(23) == False):
+        os.system('mpg123 -q donttouch.mp3 &')
+        print("Something tells me you shouldn't touch turbo-boost")
+
+    sleep(0.1);
+
+GPIO.cleanup()
