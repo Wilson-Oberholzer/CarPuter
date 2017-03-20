@@ -2,6 +2,14 @@ import os
 import time
 from time import sleep
 
+#setup for using Nokia LCD (https://learn.adafruit.com/nokia-5110-3310-lcd-python-library/usage)
+import Adafruit_Nokia_LCD as LCD
+import Adafruit_GPIO.SPI as SPI
+ 
+import Image
+import ImageDraw
+import ImageFont
+
 import RPi.GPIO as GPIO
 
 GPIO.setmode(GPIO.BCM)
@@ -54,3 +62,46 @@ while True:
     sleep(0.1);
 
 GPIO.cleanup()
+
+#drawing "kitt" display from Nokia LCD on Adafruit (see line 5)
+# Raspberry Pi hardware SPI config:
+DC = 23
+RST = 24
+SPI_PORT = 0
+SPI_DEVICE = 0
+ 
+# Raspberry Pi software SPI config:
+# SCLK = 4
+# DIN = 17
+# DC = 23
+# RST = 24
+# CS = 8
+
+# Hardware SPI usage:
+disp = LCD.PCD8544(DC, RST, spi=SPI.SpiDev(SPI_PORT, SPI_DEVICE, max_speed_hz=4000000))
+ 
+# Software SPI usage (defaults to bit-bang SPI interface):
+#disp = LCD.PCD8544(DC, RST, SCLK, DIN, CS)
+ 
+# Initialize library.
+disp.begin(contrast=60)
+ 
+# Clear display.
+disp.clear()
+disp.display()
+
+# Create blank image for drawing.
+# Make sure to create image with mode '1' for 1-bit color.
+image = Image.new('1', (LCD.LCDWIDTH, LCD.LCDHEIGHT))
+ 
+# Get drawing object to draw on image.
+draw = ImageDraw.Draw(image)
+ 
+# Draw a white filled box to clear the image.
+draw.rectangle((0,0,LCD.LCDWIDTH,LCD.LCDHEIGHT), outline=255, fill=255)
+ 
+# Draw some shapes.
+draw.ellipse((2,2,22,22), outline=0, fill=255)
+
+disp.image(image)
+disp.display()
